@@ -39,7 +39,6 @@ namespace DoublyLinkedList
 
         }
 
-
         public void AddItemInOrder(dynamic data)
         {
 
@@ -107,7 +106,7 @@ namespace DoublyLinkedList
         }
 
 
-        public dynamic getItemData(int index)
+        public dynamic getItemData(uint index)
         {
 
             Current = getItem(index);
@@ -130,7 +129,7 @@ namespace DoublyLinkedList
             }
         }
 
-        public Node getItem(int index)
+        public Node getItem(uint index)
         {
             Current = Head;
 
@@ -152,7 +151,7 @@ namespace DoublyLinkedList
             return Current;
         }
 
-        public void removeItem(int index)
+        public void removeItem(uint index)
         {
             Current = getItem(index);
 
