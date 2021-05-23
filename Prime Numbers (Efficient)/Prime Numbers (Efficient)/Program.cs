@@ -13,6 +13,7 @@ namespace Prime_Numbers__Efficient_
             int startNum = 2;
             int maxNum = Convert.ToInt32(Console.ReadLine());
             bool isPrime = true;
+            List<int> primeList = new List<int>();
 
             for (int x = startNum; x <= maxNum; x++)
             {
@@ -26,16 +27,18 @@ namespace Prime_Numbers__Efficient_
                 }
                 if (isPrime == true)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(x);
+                    primeList.Add(x);
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(x);
                     isPrime = true;
                 }
                 
+            }
+
+            foreach (var item in primeList)
+            {
+                Console.WriteLine(item);
             }
 
             Console.ReadLine();
