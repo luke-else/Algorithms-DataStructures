@@ -10,36 +10,9 @@ namespace Prime_Numbers__Efficient_
     {
         static void Main(string[] args)
         {
-            int startNum = 2;
-            int maxNum = Convert.ToInt32(Console.ReadLine());
-            bool isPrime = true;
-            List<int> primeList = new List<int>();
+            prime primeFinder = new prime();
 
-            for (int x = startNum; x <= maxNum; x++)
-            {
-                for (int y = 2; y < (x / 2) + 1; y++)
-                {
-                    if ((x % y == 0))
-                    {
-                        isPrime = false;
-                        break;
-                    }
-                }
-                if (isPrime == true)
-                {
-                    primeList.Add(x);
-                }
-                else
-                {
-                    isPrime = true;
-                }
-                
-            }
-
-            foreach (var item in primeList)
-            {
-                Console.WriteLine(item);
-            }
+            Console.WriteLine(primeFinder.getPrimes(2, 2000000));
 
             Console.ReadLine();
 
