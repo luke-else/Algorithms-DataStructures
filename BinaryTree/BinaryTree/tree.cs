@@ -35,9 +35,9 @@ namespace BinaryTree
             //Check whether we need to add the node to the left or right of 
             if (_Data < Current.Data)
             {
-                Current.SetLeft(_Data, Current);
+                Current.SetLeft(new node(_Data, Current));
             }else{
-                Current.SetRight(_Data, Current);
+                Current.SetRight(new node(_Data, Current));
             }
               
             
@@ -50,6 +50,93 @@ namespace BinaryTree
                 return _Current.GetLeft();
             }
             return _Current.GetRight();
+        }
+
+        public bool Delete(dynamic _Data){
+            //Traverse to the node we are trying to delete
+            Current = Root;
+            //try statement will run unless the node does not exitst, in which case it will throw an exception and return false.
+            try
+            {
+                while(true){
+
+                    if (_Data != Current.Data)
+                    {
+
+                        Current = Traverse(_Data, Current);
+
+                    }else{
+
+                        break;
+
+                    }
+                    
+                }
+            }
+            catch (System.Exception)
+            {
+                //If it can't be found, return false
+                 return false;
+            }
+
+            if (Current.GetLeft() != null && Current.GetRight() != null)
+            {
+                //If it has 2 children
+                node temp = new node();
+                temp = Current.GetLeft();
+                while(true){
+                    if (temp.GetRight() != null)
+                    {
+                        temp = temp.GetRight();
+                    }else{
+                        break;
+                    }
+                }
+
+                Current.Data = temp.Data;
+
+                if (temp.GetLeft() != null)
+                {
+                    temp.GetParent().SetRight(temp.GetLeft());
+                }else{
+                    temp.GetParent().SetRight(null);
+                }
+
+                return true;
+
+
+            }else if(Current.GetLeft() != null)
+            {
+                //If it has a left child
+                Current.Data = Current.GetLeft().Data;
+                Current.SetLeft(null);
+                return true;
+
+
+            }else if(Current.GetRight() != null){
+
+                //If it has a right child
+                Current.Data = Current.GetRight().Data;
+                Current.SetRight(null);
+                return true;
+
+            }else{
+
+                //If it has no children
+                if (Current.Data < Current.GetParent().Data)
+                {
+                    Current.GetParent().SetLeft(null);
+                    return true;
+                }else{
+                    Current.GetParent().SetRight(null);
+                    return true;
+                }
+
+            }
+        
+
+
+            
         }
         
         

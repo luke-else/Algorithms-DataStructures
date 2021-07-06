@@ -14,6 +14,9 @@ namespace BinaryTree
             tree.Add(3);
             tree.Add(1);
             tree.Add(4);
+            tree.Add(0.5);
+
+            tree.Delete(1);
 
         }
     }

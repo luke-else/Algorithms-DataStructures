@@ -20,11 +20,18 @@ namespace BinaryTree
 
         }
 
+        public node GetParent(){
+            return Parent;
+        }
+        public void SetParent(node _Parent){
+            Parent = _Parent;
+        }
+
         public node GetLeft(){
             return Left;
         }
-        public void SetLeft(dynamic _Data, node _Parent){
-            Left = new node(_Data, _Parent);
+        public void SetLeft(node _Left){
+            Left = _Left;
         }
 
 
@@ -32,8 +39,8 @@ namespace BinaryTree
         public node GetRight(){
             return Right;
         }        
-        public void SetRight(dynamic _Data, node _Parent){
-            Right = new node(_Data, _Parent);
+        public void SetRight(node _Right){
+            Right = _Right;
         }
 
 
