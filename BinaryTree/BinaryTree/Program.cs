@@ -18,6 +18,8 @@ namespace BinaryTree
 
             tree.Delete(1);
 
+            Console.ReadLine();
+
         }
     }
 }
