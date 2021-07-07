@@ -41,8 +41,6 @@ namespace BinaryTree
             Left = _Left;
         }
 
-
-
         public node GetRight(){
             return Right;
         }        
