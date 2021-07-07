@@ -82,8 +82,9 @@ namespace BinaryTree
             if (Current.GetLeft() != null && Current.GetRight() != null)
             {
                 //If it has 2 children
-                node temp = new node();
-                temp = Current.GetLeft();
+                node temp = Current.GetLeft();
+
+                //Traverse to node that will replace Current
                 while(true){
                     if (temp.GetRight() != null)
                     {
@@ -94,14 +95,22 @@ namespace BinaryTree
                 }
 
                 Current.Data = temp.Data;
+                
+                //Find if the temp node is a left or a right now before deleting. 
+                //Adopt subtree Nodes// -- Subtrees are lost (If temp node is only 1 level down, data is lost)
+                // if (temp.GetLeft() != null)
+                // {
+                //     temp.GetParent().SetRight(temp.GetLeft());
+                // }else{
+                //     temp.GetParent().SetRight(null);
+                // }
 
-                if (temp.GetLeft() != null)
-                {
-                    temp.GetParent().SetRight(temp.GetLeft());
+
+                if(temp.GetParent() == Current){
+                    Current.SetLeft(null);
                 }else{
-                    temp.GetParent().SetRight(null);
+                    Current.SetLeft(temp.GetLeft());
                 }
-
                 return true;
 
 
@@ -135,7 +144,6 @@ namespace BinaryTree
             }
             
         }
-        
         
     }
 }
