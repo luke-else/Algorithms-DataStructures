@@ -7,6 +7,13 @@ namespace BinaryTree
         private node Left { get; set; }
         private node Right { get; set; }
 
+
+        //Print Method Data
+        public int StartPos;
+        public int Size { get { return Data.Length; } }
+        public int EndPos { get { return StartPos + Size; } set { StartPos = value - Size; } }
+
+
         public node(dynamic _Data = null,
                     node _Parent = null, 
                     node _Left = null, 

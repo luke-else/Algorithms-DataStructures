@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace BinaryTree
 {
     public class tree
@@ -107,32 +110,64 @@ namespace BinaryTree
 
 
                 if(temp.GetParent() == Current){
-                    Current.SetLeft(null);
-                }else{
+                    //If the current node is parent to our replacing node. (Only 1 level down)
                     Current.SetLeft(temp.GetLeft());
+                }else{
+                    //If we could traverse down the left hand side
+                    if (temp.GetLeft() != null)
+                    {
+                        temp.GetParent().SetRight(temp.GetLeft());
+                    }else{
+                        temp.GetParent().SetRight(null);
+                    }
                 }
                 return true;
 
 
-            }else if(Current.GetLeft() != null)
+            }else if(Current.GetLeft() != null || Current.GetRight() != null)
             {
-                //If it has a left child
-                Current.Data = Current.GetLeft().Data;
-                Current.SetLeft(null);
+
+                bool LeftFlag = false;
+
+                if (Current == Root)
+                {
+                    if (Current.GetLeft() != null)
+                    {
+                        Root = Current.GetLeft();
+                    }else{
+                        Root = Current.GetRight();
+                    }
+                }
+
+                if (Current.Data < Current.GetParent().Data)
+                {
+                    LeftFlag = true;
+                }
+
+                if (Current.GetLeft() != null)
+                {//If it has a left child
+                    if (LeftFlag == true)
+                    {
+                        Current.GetParent().SetLeft(Current.GetLeft());
+                    }else{
+                        Current.GetParent().SetRight(Current.GetLeft());
+                    }
+                }else{//If it has a right child
+                    if (LeftFlag == true)
+                    {
+                        Current.GetParent().SetLeft(Current.GetRight());
+                    }else{
+                        Current.GetParent().SetRight(Current.GetRight());
+                    } 
+                }
+
                 return true;
 
-
-            }else if(Current.GetRight() != null){
-
-                //If it has a right child
-                Current.Data = Current.GetRight().Data;
-                Current.SetRight(null);
-                return true;
 
             }else{
 
                 //If it has no children
-                if (Current.Data < Current.GetParent().Data)
+                if (Current.Data <= Current.GetParent().Data)
                 {
                     Current.GetParent().SetLeft(null);
                     return true;
@@ -143,6 +178,108 @@ namespace BinaryTree
 
             }
             
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        //print Method functions
+		public void Print(node root, int topMargin = 2, int leftMargin = 2)
+        {
+            if (root == null) return;
+            int rootTop = Console.CursorTop + topMargin;
+            var last = new List<node>();
+            var next = root;
+            for (int level = 0; next != null; level++)
+            {
+                var item = new node { Data = next.Data.ToString(" 0 ") };
+                item.SetLeft(next.GetLeft());
+                item.SetRight(next.GetRight());
+                if (level < last.Count)
+                {
+                    item.StartPos = last[level].EndPos + 1;
+                    last[level] = item;
+                }
+                else
+                {
+                    item.StartPos = leftMargin;
+                    last.Add(item);
+                }
+                if (level > 0)
+                {
+                    item.SetParent(last[level - 1]);
+                    if (next == item.GetParent().GetLeft())
+                    {
+                        item.GetParent().SetLeft(item);
+                        item.EndPos = Math.Max(item.EndPos, item.GetParent().StartPos);
+                    }
+                    else
+                    {
+                        item.GetParent().SetRight(item);
+                        item.StartPos = Math.Max(item.StartPos, item.GetParent().EndPos);
+                    }
+                }
+                next = next.GetLeft() ?? next.GetRight();
+                for (; next == null; item = item.GetParent())
+                {
+                    Print(item, rootTop + 2 * level);
+                    if (--level < 0) break;
+                    if (item == item.GetParent().GetLeft())
+                    {
+                        item.GetParent().StartPos = item.EndPos;
+                        next = item.GetParent().GetRight();
+                    }
+                    else
+                    {
+                        if (item.GetParent().GetLeft() == null)
+                            item.GetParent().EndPos = item.StartPos;
+                        else
+                            item.GetParent().StartPos += (item.StartPos - item.GetParent().EndPos) / 2;
+                    }
+                }
+            }
+            Console.SetCursorPosition(0, rootTop + 2 * last.Count - 1);
+        }
+
+        private void Print(node item, int top)
+        {
+            SwapColors();
+            Print(item.Data, top, item.StartPos);
+            SwapColors();
+            if (item.GetLeft() != null)
+                PrintLink(top + 1, "┌", "┘", item.GetLeft().StartPos + item.GetLeft().Size / 2, item.StartPos);
+            if (item.GetRight() != null)
+                PrintLink(top + 1, "└", "┐", item.EndPos - 1, item.GetRight().StartPos + item.GetRight().Size / 2);
+        }
+
+        private void PrintLink(int top, string start, string end, int startPos, int endPos)
+        {
+            Print(start, top, startPos);
+            Print("─", top, startPos + 1, endPos);
+            Print(end, top, endPos);
+        }
+
+        private void Print(string s, int top, int left, int right = -1)
+        {
+            Console.SetCursorPosition(left, top);
+            if (right < 0) right = left + s.Length;
+            while (Console.CursorLeft < right) Console.Write(s);
+        }
+
+        private void SwapColors()
+        {
+            var color = Console.ForegroundColor;
+            Console.ForegroundColor = Console.BackgroundColor;
+            Console.BackgroundColor = color;
         }
         
     }
