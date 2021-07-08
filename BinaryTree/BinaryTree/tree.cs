@@ -42,8 +42,7 @@ namespace BinaryTree
             }else{
                 Current.SetRight(new node(_Data, Current));
             }
-              
-            
+                
         }
         
         private node Traverse(dynamic _Data, node _Current){
@@ -65,18 +64,14 @@ namespace BinaryTree
 
                     if (_Data != Current.Data)
                     {
-
                         Current = Traverse(_Data, Current);
-
                     }else{
-
                         break;
-
                     }
                     
                 }
             }
-            catch (System.Exception)
+            catch
             {
                 //If it can't be found, return false
                  return false;
@@ -99,9 +94,7 @@ namespace BinaryTree
 
                 Current.Data = temp.Data;
                 
-                //Find if the temp node is a left or a right now before deleting. 
-
-
+                //Find if the temp node is a left or a right node before deleting. 
                 if(temp.GetParent() == Current){
                     //If the current node is parent to our replacing node. (Only 1 level down)
                     Current.SetLeft(temp.GetLeft());
@@ -110,16 +103,11 @@ namespace BinaryTree
                     if (temp.GetLeft() != null)
                     {
                         temp.GetParent().SetRight(temp.GetLeft());
+                        temp.GetLeft().SetParent(temp.GetParent());//---
                     }else{
                         temp.GetParent().SetRight(null);
                     }
                 }
-                //*Code not currently working - Doesn't confidently replace the root or parent nodes of each item that is deleted
-                // temp.SetParent(Current.GetParent());
-                // if (Current.GetParent() == null)
-                // {
-                //     Root = Current;
-                // }
                 return true;
 
 
@@ -136,9 +124,10 @@ namespace BinaryTree
                     }else{
                         Root = Current.GetRight();
                     }
+                    return true;
                 }
 
-                if (Current == Root || Current.Data < Current.GetParent().Data)
+                if (Current.Data < Current.GetParent().Data)
                 {
                     LeftFlag = true;
                 }
@@ -151,13 +140,15 @@ namespace BinaryTree
                     }else{
                         Current.GetParent().SetRight(Current.GetLeft());
                     }
+                    Current.GetLeft().SetParent(Current.GetParent());
                 }else{//If it has a right child
                     if (LeftFlag == true)
                     {
                         Current.GetParent().SetLeft(Current.GetRight());
                     }else{
                         Current.GetParent().SetRight(Current.GetRight());
-                    } 
+                    }
+                    Current.GetRight().SetParent(Current.GetParent());
                 }
 
                 return true;
@@ -166,15 +157,24 @@ namespace BinaryTree
             }else{
 
                 //If it has no children
-                if (Current.Data <= Current.GetParent().Data)
+                if (Current == Root)
                 {
-                    Current.GetParent().SetLeft(null);
+                    Root = null;
                     return true;
                 }else{
-                    Current.GetParent().SetRight(null);
-                    return true;
-                }
 
+                    //Set the parent's relevent pointer to null
+                    if (Current.Data <= Current.GetParent().Data)
+                    {
+                        Current.GetParent().SetLeft(null);
+                        return true;
+                    }else{
+                        Current.GetParent().SetRight(null);
+                        return true;
+                    }
+
+                }
+                
             }
             
         }

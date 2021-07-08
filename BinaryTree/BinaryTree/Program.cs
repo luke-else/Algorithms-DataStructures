@@ -10,7 +10,7 @@ namespace BinaryTree
 
             Random random = new Random();
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < 50; i++)
             {
                 tree.Add(random.Next(0, 100));
             }
@@ -23,9 +23,6 @@ namespace BinaryTree
                 Console.WriteLine("Delete node: ");
 
                 tree.Delete(Convert.ToInt32(Console.ReadLine()));
-
-                tree.Print(tree.Root);
-                Console.ReadLine();
                 
             }
 
