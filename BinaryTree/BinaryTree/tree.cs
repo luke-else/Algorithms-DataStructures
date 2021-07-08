@@ -185,14 +185,6 @@ namespace BinaryTree
 
 
 
-
-
-
-
-
-
-
-
         
         //print Method functions
 		public void Print(node root, int topMargin = 2, int leftMargin = 2)
