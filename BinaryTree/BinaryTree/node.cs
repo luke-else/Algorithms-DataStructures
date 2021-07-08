@@ -48,6 +48,5 @@ namespace BinaryTree
             Right = _Right;
         }
 
-
     }
 }

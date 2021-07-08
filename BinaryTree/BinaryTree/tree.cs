@@ -98,18 +98,21 @@ namespace BinaryTree
                 if(temp.GetParent() == Current){
                     //If the current node is parent to our replacing node. (Only 1 level down)
                     Current.SetLeft(temp.GetLeft());
+                    if (temp.GetLeft() != null)
+                    {
+                        temp.GetLeft().SetParent(temp.GetParent());
+                    }
                 }else{
                     //If we could traverse down the left hand side
                     if (temp.GetLeft() != null)
                     {
                         temp.GetParent().SetRight(temp.GetLeft());
-                        temp.GetLeft().SetParent(temp.GetParent());//---
+                        temp.GetLeft().SetParent(temp.GetParent());
                     }else{
                         temp.GetParent().SetRight(null);
                     }
                 }
                 return true;
-
 
             }else if(Current.GetLeft() != null || Current.GetRight() != null)
             {
