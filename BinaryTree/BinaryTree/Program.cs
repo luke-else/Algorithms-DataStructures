@@ -15,16 +15,18 @@ namespace BinaryTree
                 tree.Add(random.Next(0, 100));
             }
 
-            tree.Print(tree.Root);
-
             while (true)
             {
+                Console.Clear();
+                tree.Print(tree.Root);
                 Console.WriteLine("-------------------------------------");
                 Console.WriteLine("Delete node: ");
 
                 tree.Delete(Convert.ToInt32(Console.ReadLine()));
 
                 tree.Print(tree.Root);
+                Console.ReadLine();
+                
             }
 
         }

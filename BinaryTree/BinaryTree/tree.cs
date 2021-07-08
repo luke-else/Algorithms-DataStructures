@@ -100,13 +100,6 @@ namespace BinaryTree
                 Current.Data = temp.Data;
                 
                 //Find if the temp node is a left or a right now before deleting. 
-                //Adopt subtree Nodes// -- Subtrees are lost (If temp node is only 1 level down, data is lost)
-                // if (temp.GetLeft() != null)
-                // {
-                //     temp.GetParent().SetRight(temp.GetLeft());
-                // }else{
-                //     temp.GetParent().SetRight(null);
-                // }
 
 
                 if(temp.GetParent() == Current){
@@ -121,6 +114,12 @@ namespace BinaryTree
                         temp.GetParent().SetRight(null);
                     }
                 }
+                //*Code not currently working - Doesn't confidently replace the root or parent nodes of each item that is deleted
+                // temp.SetParent(Current.GetParent());
+                // if (Current.GetParent() == null)
+                // {
+                //     Root = Current;
+                // }
                 return true;
 
 
@@ -139,7 +138,7 @@ namespace BinaryTree
                     }
                 }
 
-                if (Current.Data < Current.GetParent().Data)
+                if (Current == Root || Current.Data < Current.GetParent().Data)
                 {
                     LeftFlag = true;
                 }
