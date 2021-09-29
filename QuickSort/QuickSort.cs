@@ -29,10 +29,10 @@ namespace QuickSort
                 if (right.Index > left.Index)
                 {
                     //Swap the values of the pointers as well!!!
-                    List = swap(List, right, left);
+                    List = swap(List, ref right, ref left);
                 }
                 //Might be
-                List = swap(List, pivot, right);
+                List = swap(List, ref pivot, ref right);
                 
                 
                 
@@ -65,14 +65,15 @@ namespace QuickSort
         }
 
 
-        public int[] swap(int[] List, Pointer pointer1, Pointer pointer2){
+        public int[] swap(int[] List, ref Pointer pointer1, ref Pointer pointer2){
             Pointer temp = pointer1;
             //Assign both the value and index
             //Pointer1
             List[pointer1.Index] = List[pointer2.Index];
-            
+            pointer1.UpdatePointer(pointer2.Index, List);
             //Pointer2
             List[pointer2.Index] = List[temp.Index];
+            pointer2.UpdatePointer(temp.Index, List);
             return List;
         }
     }
