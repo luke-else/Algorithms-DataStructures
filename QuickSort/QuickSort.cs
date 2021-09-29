@@ -7,13 +7,8 @@ namespace QuickSort
 {
     public class QuickSort
     {
-        public int[] List { get; set; }
-        
-        public QuickSort(int[] List){
-            
-        }
 
-        public int[] Sort(){
+        public int[] Sort(int[] List){
 
             Pointer pivot = new Pointer(0, List);
 
@@ -33,17 +28,52 @@ namespace QuickSort
                 }
                 if (right.Index > left.Index)
                 {
-                    //Swap the values of both 
-                    swap();
+                    //Swap the values of the pointers as well!!!
+                    List = swap(List, right, left);
                 }
+                //Might be
+                List = swap(List, pivot, right);
+                
+                
+                
             }
+            int[] leftHalf = new int[right.Index];
+            for (var i = 0; i <= right.Index; i++)
+            {
+                leftHalf[i] = List[i];
+            }
+            leftHalf = Sort(leftHalf);
 
-            return new int[1]{1};
+            int[] rightHalf = new int[List.Length - right.Index];
+            for (var i = 0; i <= right.Index; i++)
+            {
+                rightHalf[i] = List[i];
+            }
+            rightHalf = Sort(rightHalf);
+            
+            int[] newList = new int[leftHalf.Length + rightHalf.Length];
+            for (var i = 0; i < leftHalf.Length; i++)
+            {
+                newList[i] = leftHalf[i];
+            }
+            for (var i = 0; i < rightHalf.Length; i++)
+            {
+                newList[i + leftHalf.Length] = rightHalf[i];
+            }
+            return newList;
+
         }
 
 
-        public void swap(){
+        public int[] swap(int[] List, Pointer pointer1, Pointer pointer2){
+            Pointer temp = pointer1;
+            //Assign both the value and index
+            //Pointer1
+            List[pointer1.Index] = List[pointer2.Index];
             
+            //Pointer2
+            List[pointer2.Index] = List[temp.Index];
+            return List;
         }
     }
 

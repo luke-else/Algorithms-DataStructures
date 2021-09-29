@@ -10,7 +10,7 @@ namespace BinaryTree
 
             Random random = new Random();
 
-            for (var i = 0; i < 50; i++)
+            for (var i = 0; i < 10; i++)
             {
                 tree.Add(random.Next(0, 100));
             }
