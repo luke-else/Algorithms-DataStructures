@@ -10,52 +10,57 @@ namespace QuickSort
 
         public int[] Sort(int[] List){
 
-            Pointer pivot = new Pointer(0, List);
+            if(List.Length <= 1) return List;
 
-            Pointer left = new Pointer(1, List);
+            int pivot = 0;
 
-            Pointer right = new Pointer(List.Length-1, List);
+            int left = 1;
 
-            while (right.Index >= left.Index)
+            int right = List.Length - 1;
+
+            while (right >= left)
             {
-                while (left.Index <= right.Index && left.Value <= pivot.Value)
+                while (left <= right && List[left] <= pivot)
                 {
-                    left.UpdatePointer(left.Index + 1, List);
+                    left++;
                 }
-                while (right.Index >= left.Index & right.Value >= pivot.Value)
+                while (right >= left && List[right] >= List[pivot])
                 {
-                    right.UpdatePointer(right.Index - 1, List);
+                    right--;
                 }
-                if (right.Index > left.Index)
+                if (right > left)
                 {
                     //Swap the values of the pointers as well!!!
-                    List = swap(List, ref right, ref left);
+                    swap(ref List, ref right, ref left);
                 }
                 //Might be
-                List = swap(List, ref pivot, ref right);
+                swap(ref List, ref pivot, ref right);
                 
                 
                 
             }
-            int[] leftHalf = new int[right.Index];
-            for (var i = 0; i <= right.Index; i++)
+            int[] leftHalf = new int[right + 1];
+            for (var i = 0; i <= right; i++)
             {
                 leftHalf[i] = List[i];
             }
             leftHalf = Sort(leftHalf);
 
-            int[] rightHalf = new int[List.Length - right.Index];
-            for (var i = 0; i <= right.Index; i++)
+            int[] rightHalf = new int[List.Length - right - 1];
+            for (var i = 0; i <= right; i++)
             {
                 rightHalf[i] = List[i];
             }
             rightHalf = Sort(rightHalf);
             
-            int[] newList = new int[leftHalf.Length + rightHalf.Length];
+            int[] newList = new int[/*leftHalf.Length + rightHalf.Length*/ List.Length];
             for (var i = 0; i < leftHalf.Length; i++)
             {
                 newList[i] = leftHalf[i];
             }
+            
+            newList[leftHalf.Length + 1] = List[right];
+
             for (var i = 0; i < rightHalf.Length; i++)
             {
                 newList[i + leftHalf.Length] = rightHalf[i];
@@ -65,16 +70,15 @@ namespace QuickSort
         }
 
 
-        public int[] swap(int[] List, ref Pointer pointer1, ref Pointer pointer2){
-            Pointer temp = pointer1;
+        public void swap(ref int[] List, ref int pointer1, ref int pointer2){
+            int temp = List[pointer1];
             //Assign both the value and index
             //Pointer1
-            List[pointer1.Index] = List[pointer2.Index];
-            pointer1.UpdatePointer(pointer2.Index, List);
+            List[pointer1] = List[pointer2];
+            //pointer1 = pointer2;
             //Pointer2
-            List[pointer2.Index] = List[temp.Index];
-            pointer2.UpdatePointer(temp.Index, List);
-            return List;
+            List[pointer2] = temp;
+            //pointer2 = temp;
         }
     }
 
@@ -83,14 +87,14 @@ namespace QuickSort
         public int Value { get; set; }
         
 
-        public Pointer(int index, int[] list){
+        public Pointer(int index, int value){
             this.Index = index;
-            this.Value = list[index];
+            this.Value = value;
         }
 
-        public void UpdatePointer(int index, int[] list){
+        public void UpdatePointer(int index, int value){
             this.Index = index;
-            this.Value = list[index];
+            this.Value = value;
         }
     }
 }
