@@ -20,8 +20,9 @@ namespace BinaryTree
                 Console.Clear();
                 tree.Print(tree.Root);
                 Console.WriteLine("-------------------------------------");
+                tree.InOrderTraversal(tree.Root);
                 Console.WriteLine("Delete node: ");
-
+                
                 tree.Delete(Convert.ToInt32(Console.ReadLine()));
                 
             }

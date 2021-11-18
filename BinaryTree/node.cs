@@ -14,38 +14,38 @@ namespace BinaryTree
         public int EndPos { get { return StartPos + Size; } set { StartPos = value - Size; } }
 
 
-        public node(dynamic _Data = null,
-                    node _Parent = null, 
-                    node _Left = null, 
-                    node _Right = null){
+        public node(dynamic data = null,
+                    node parent = null, 
+                    node left = null, 
+                    node right = null){
 
             //New node for a Binary Tree. Values can be set to null if they are not present
-            Data = _Data;
-            Parent = _Parent;
-            Left = _Left;
-            Right = _Right;
+            Data = data;
+            Parent = parent;
+            Left = left;
+            Right = right;
 
         }
 
         public node GetParent(){
             return Parent;
         }
-        public void SetParent(node _Parent){
-            Parent = _Parent;
+        public void SetParent(node parent){
+            Parent = parent;
         }
 
         public node GetLeft(){
             return Left;
         }
-        public void SetLeft(node _Left){
-            Left = _Left;
+        public void SetLeft(node left){
+            Left = left;
         }
 
         public node GetRight(){
             return Right;
         }        
-        public void SetRight(node _Right){
-            Right = _Right;
+        public void SetRight(node right){
+            Right = right;
         }
 
     }

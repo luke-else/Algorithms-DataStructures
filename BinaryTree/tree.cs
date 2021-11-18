@@ -183,7 +183,17 @@ namespace BinaryTree
         }
 
 
+        public void InOrderTraversal(node current){
 
+            if (current.GetLeft() != null)
+                InOrderTraversal(current.GetLeft());
+
+            Console.Write($"{current.Data} -> ");
+
+            if (current.GetRight() != null)
+                InOrderTraversal(current.GetRight());
+            
+        }
 
         
         //print Method functions
@@ -264,6 +274,7 @@ namespace BinaryTree
 
         private void Print(string s, int top, int left, int right = -1)
         {
+
             Console.SetCursorPosition(left, top);
             if (right < 0) right = left + s.Length;
             while (Console.CursorLeft < right) Console.Write(s);
