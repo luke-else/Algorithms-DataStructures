@@ -17,17 +17,17 @@ func main() {
 	testTimed(10000000)
 }
 
-func RecursiveBinarySearch(list []int, value int, start int, end int) int {
+func RecursiveBinarySearch(list *[]int, value int, start int, end int) int {
 	var mid int = (start + end) / 2
 
 	if start == (end - 1) {
-		if list[mid] == value {
+		if (*list)[mid] == value {
 			return mid
 		}
 		return -1
 	}
 
-	if value < list[mid] {
+	if value < (*list)[mid] {
 		return RecursiveBinarySearch(list, value, start, mid)
 	}
 	return RecursiveBinarySearch(list, value, mid, end)
@@ -79,7 +79,7 @@ func testTimed(value int) {
 
 		rnd := rand.Intn(i*mult) + 1
 
-		x := RecursiveBinarySearch(list, rnd, 0, len(list)-1)
+		x := RecursiveBinarySearch(&list, rnd, 0, len(list)-1)
 
 		//fmt.Println(time.Now().Sub(start), x, i*1000, "items")
 		fmt.Println("found number ", rnd, ":", x, " in a list of ", len(list), " items in ", time.Since(start))
